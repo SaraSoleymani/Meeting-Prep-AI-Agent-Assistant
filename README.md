@@ -2,7 +2,7 @@
 
 An agentic n8n workflow that reads a list of prospects from Google Sheets, researches each company using live web search, generates a structured meeting prep brief, and writes it back to the sheet — ready before your next call.
 
-Built as a practical example for [Week 2 of the *Building with Agentic AI* series on Medium](#).
+Built and shared as part of my 10 Week Building with Agentic AI series.Folllow the serries eitehr on my [LinkedIn](https://www.linkedin.com/in/sarasoleymani/) or [Medium](https://sarasoleymani.medium.com/)
 
 ---
 
