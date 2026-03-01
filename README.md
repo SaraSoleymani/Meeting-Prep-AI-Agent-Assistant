@@ -115,7 +115,10 @@ This workflow runs **manually only** — click **Execute Workflow** in n8n whene
 To automate it on a schedule, replace the Manual Trigger with a Schedule Trigger node (e.g. every weekday morning at 7am: `0 7 * * 1-5`).
 
 ---
+## Screen Recording
+https://youtu.be/8emhJaJKalE
 
+---
 ## The Four Building Blocks in This Workflow
 
 | Building Block | How It's Implemented |
