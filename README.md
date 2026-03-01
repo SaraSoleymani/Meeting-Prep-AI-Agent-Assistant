@@ -1,4 +1,4 @@
-# Meeting Prep Agentic AI Assistant — n8n Workflow
+# Sales Meeting Prep Agentic AI Assistant — n8n Workflow
 
 An agentic n8n workflow that reads a list of prospects from Google Sheets, researches each company using live web search, generates a structured meeting prep brief, and writes it back to the sheet — ready before your next call.
 
