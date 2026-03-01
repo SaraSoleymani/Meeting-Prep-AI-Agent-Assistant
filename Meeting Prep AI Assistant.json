@@ -1,0 +1,404 @@
+{
+  "name": "Meeting Prep AI Assistant",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You have a new meeting prep request.\n\nProspect Name: {{ $json.prospect_name }}\nProspect Title: {{ $json.prospect_title }}\nCompany: {{ $json.company_name }}\n\nUse the Customer_Research tool to search for recent news and signals about {{ $json.company_name }}, then generate a structured meeting prep brief.",
+        "options": {
+          "systemMessage": "You are a helpful assistantYou are a senior enterprise AE with 10 years of experience selling to VP-level buyers. Your job is to write a concise, insight-driven meeting prep brief that helps an AE walk into the call prepared with specific signals and a point of view — not a generic company summary.\n\nAlways use the Customer_Research tool first to gather recent information before writing the brief.\n\nReturn your response in this exact format:\n\n**Company Snapshot**\n2-3 sentences on what they do, who they serve, and their growth stage.\n\n**Recent Signals**\n2-3 bullet points of relevant recent news, funding, hires, or product announcements.\n\n**Buyer Profile**\nWho you are likely meeting with, what they care about, and what success looks like for them.\n\n**Most Likely Pain Point**\nOne specific challenge this company is probably facing that is relevant to what you sell.\n\n**Suggested Opening**\nA 1-2 sentence opener that references something specific. Not generic phrases like I saw you are growing fast.\n\nKeep the entire brief under 250 words. Be direct. Skip filler. If you do not have reliable context on a section, say so rather than guessing.\n\nA good brief gives an AE something specific to say in the first 30 seconds of a call. Generic information does not count."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        432,
+        0
+      ],
+      "id": "f086b4f9-e9f0-4e30-bf10-d842166682ab",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1RGgqdTOq1XP5P7x5w8vi0hJhhoZVdOicn78DRP12STU",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGgqdTOq1XP5P7x5w8vi0hJhhoZVdOicn78DRP12STU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGgqdTOq1XP5P7x5w8vi0hJhhoZVdOicn78DRP12STU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "brief": "={{ $json.output }}",
+            "prospect_name": "={{ $('Get row(s) in sheet').item.json.prospect_name }}",
+            "status": "done"
+          },
+          "matchingColumns": [
+            "prospect_name"
+          ],
+          "schema": [
+            {
+              "id": "prospect_name",
+              "displayName": "prospect_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "prospect_title",
+              "displayName": "prospect_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "brief",
+              "displayName": "brief",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        784,
+        0
+      ],
+      "id": "9cbbacc6-2eeb-4af9-bf44-680db2a0774b",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "krQ6ZvUIjA5yWMWS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        48,
+        0
+      ],
+      "id": "ef16cd78-6080-42f5-833e-cd814c0f4306",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1RGgqdTOq1XP5P7x5w8vi0hJhhoZVdOicn78DRP12STU",
+          "mode": "list",
+          "cachedResultName": "sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGgqdTOq1XP5P7x5w8vi0hJhhoZVdOicn78DRP12STU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1RGgqdTOq1XP5P7x5w8vi0hJhhoZVdOicn78DRP12STU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        256,
+        0
+      ],
+      "id": "e7abb94b-04f1-4c48-b6a0-f21d5ab413ab",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "krQ6ZvUIjA5yWMWS",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "query": "={{ $json.company_name }} news funding product launch 2025",
+        "options": {}
+      },
+      "type": "@tavily/n8n-nodes-tavily.tavilyTool",
+      "typeVersion": 1,
+      "position": [
+        656,
+        208
+      ],
+      "id": "bfb3bc6b-634e-456b-a765-9a25710a99b8",
+      "name": "Customer_Research",
+      "credentials": {
+        "tavilyApi": {
+          "id": "mleKr4QTrxDsxiwH",
+          "name": "Tavily account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        304,
+        208
+      ],
+      "id": "89fcf7d8-77ac-434a-9061-3c7ebcae0419",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "yyBndvohMOsG2NjX",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 1. Manual Trigger\nRun this workflow manually from n8n whenever you want to generate briefs for all pending prospects in your sheet.",
+        "height": 120,
+        "width": 220,
+        "color": 4
+      },
+      "id": "030b9c7a-5561-4f8c-b455-8f093fd18ad5",
+      "name": "Sticky Note 1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 2. Get Prospects\nReads all rows from your Google Sheet where status = \"pending\". Add prospect_name, prospect_title, company_name, status, and brief as columns.",
+        "height": 140,
+        "width": 220,
+        "color": 4
+      },
+      "id": "9887f6f0-912d-430d-8e04-6a8ee0f1e7f1",
+      "name": "Sticky Note 2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        192,
+        -160
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 3. AI Agent\nThe brain of the workflow. Uses the system prompt to generate a structured meeting prep brief. Calls Customer_Research tool automatically to gather live signals before writing.",
+        "width": 220,
+        "color": 4
+      },
+      "id": "5d10edac-2738-4691-a330-d128459e51bc",
+      "name": "Sticky Note 3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        432,
+        -176
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 4. OpenAI Chat Model\nPowers the AI Agent with GPT. Set to GPT 5.1.mini with temperature 0.3 for consistent, focused outputs. Connect your OpenAI API credentials here.",
+        "height": 140,
+        "width": 220,
+        "color": 6
+      },
+      "id": "37ea5763-02d2-48fb-a69c-25671698613b",
+      "name": "Sticky Note 4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 5. Customer Research\nTavily search tool used by the AI Agent to find recent news, funding rounds, hires, and product signals about the prospect's company. Add your TAVILY_API_KEY in n8n Variables.",
+        "height": 140,
+        "width": 220,
+        "color": 6
+      },
+      "id": "56cf9797-949f-4083-969e-c27163d20945",
+      "name": "Sticky Note 5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        592,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 6. Update Row in Sheet\nWrites the generated brief back to the matching row in Google Sheets and sets status to \"done\". Matches on prospect_name to find the right row.",
+        "height": 140,
+        "width": 220,
+        "color": 4
+      },
+      "id": "f79b3a61-1034-460d-b4c3-7c478420c301",
+      "name": "Sticky Note 6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        800,
+        160
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Customer_Research": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "033a07c8-59b1-4c6f-a639-6f778d2ddf86",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d2926e605d262bee5909c7941095358b0b2fbb483629d7cc273c8d86e3c55860"
+  },
+  "id": "u7vyDKEqaQrPWYR9",
+  "tags": [
+    {
+      "updatedAt": "2026-02-28T03:26:26.362Z",
+      "createdAt": "2026-02-28T03:26:26.362Z",
+      "id": "K33HrzRB0kaHoOyp",
+      "name": "meeting-prep"
+    },
+    {
+      "updatedAt": "2026-02-28T03:26:26.416Z",
+      "createdAt": "2026-02-28T03:26:26.416Z",
+      "id": "nf3Zdex9IbbsoycM",
+      "name": "ai-agent"
+    },
+    {
+      "updatedAt": "2026-02-28T03:26:26.392Z",
+      "createdAt": "2026-02-28T03:26:26.392Z",
+      "id": "tZCaPYPANS8s9Yrp",
+      "name": "sales"
+    }
+  ]
+}
